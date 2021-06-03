@@ -17,9 +17,23 @@ namespace MovieShop.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult TopMovies()
+        public IActionResult TopRatedMovies()
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult TopRevenue()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Genre(int genreId)
+        {
+            return View();
+        }
+
+
     }
 }
