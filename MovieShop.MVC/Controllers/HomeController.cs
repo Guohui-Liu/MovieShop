@@ -18,12 +18,22 @@ namespace MovieShop.MVC.Controllers
             _logger = logger;
         }
 
+        //localhost/Home/Index
         public IActionResult Index()
+        {
+            return View();
+            //return View("Privacy");
+        }
+
+
+        //localhost/Home/Privacy
+        public IActionResult Privacy()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+
+        public IActionResult TopMovies()
         {
             return View();
         }
