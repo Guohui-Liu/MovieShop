@@ -8,6 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Infrastructure.Data;
+using ApplicationCore.ServiceInterfaces;
+using Infrastructure.Services;
 
 namespace MovieShop.MVC
 {
@@ -24,6 +28,17 @@ namespace MovieShop.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //telling our container what class it needs to inject in the consturcture for the interface
+            //registration of service for interface
+            //autofac third party ioc
+            //service.addscoped<if controllername has"home", then use MovieServiceTest, else use MoiveService
+            services.AddScoped<IMovieServices, MovieService>();
+           // services.AddScoped<IMovieServices, MovieServiceTest>();
+
+            services.AddDbContext<MovieShopDbContext>(options =>
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("MovieShopDbConnection"));
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
