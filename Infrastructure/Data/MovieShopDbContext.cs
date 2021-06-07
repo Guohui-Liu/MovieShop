@@ -90,8 +90,7 @@ namespace Infrastructure.Data
         {
             builder.ToTable("MovieGenre");
             builder.HasKey(mg => new { mg.MovieId, mg.GenreId });
-           // builder.HasOne(mg => mg.Movie).WithMany(mg => mg.MovieCasts).HasForeignKey(mg => mg.MovieId);
-          // builder.HasOne(mg => mg.Cast).WithMany(mg => mg.MovieCasts).HasForeignKey(mg => mg.CastId);
+          
         }
         private void ConfigureGenre(EntityTypeBuilder<Genre> builder)
         {
