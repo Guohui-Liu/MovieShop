@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class MovieServiceTest : IMovieServices
+    public class MovieServiceTest : IMovieService
     {
         public List<MovieCardResponseModel> GetTopRevenueMovies()
         {

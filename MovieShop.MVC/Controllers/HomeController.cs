@@ -20,7 +20,7 @@ namespace MovieShop.MVC.Controllers
             _logger = logger;
         }
         //readonly can only modified in constructor,don't want to change it in other method
-        private readonly IMovieServices _movieService;
+        private readonly IMovieService _movieService;
 
         //constructor injection
         //public HomeController()
@@ -28,7 +28,7 @@ namespace MovieShop.MVC.Controllers
         //    //_movieService = new MovieService();
         //}
 
-        public HomeController(IMovieServices movieService)
+        public HomeController(IMovieService movieService)
         {
             _movieService = movieService;
         }

@@ -13,7 +13,9 @@ namespace ApplicationCore.Entities
         public decimal Rating { get; set; }
         public String ReviewText { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
+
+        public Movie Movie { get; set; }
 
     }
 }

@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Services;
+using ApplicationCore.RepositoryInterfaces;
+using Infrastructure.Repositories;
 
 namespace MovieShop.MVC
 {
@@ -32,8 +34,9 @@ namespace MovieShop.MVC
             //registration of service for interface
             //autofac third party ioc
             //service.addscoped<if controllername has"home", then use MovieServiceTest, else use MoiveService
-            services.AddScoped<IMovieServices, MovieService>();
-           // services.AddScoped<IMovieServices, MovieServiceTest>();
+            services.AddScoped<IMovieService, MovieService>();
+            // services.AddScoped<IMovieServices, MovieServiceTest>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
 
             services.AddDbContext<MovieShopDbContext>(options =>
                 {

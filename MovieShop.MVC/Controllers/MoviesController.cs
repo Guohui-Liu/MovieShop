@@ -12,8 +12,8 @@ namespace MovieShop.MVC.Controllers
         //localhost/moveis/details/23
         //always have http Method attributes, by default if you don't have anything its HttpGet
 
-        private readonly IMovieServices _movieServices;
-        public MoviesController(IMovieServices service)
+        private readonly IMovieService _movieServices;
+        public MoviesController(IMovieService service)
         {
             _movieServices = service;
         }

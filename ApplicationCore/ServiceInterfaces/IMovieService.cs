@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.ServiceInterfaces
 {
-    public interface IMovieServices
+    public interface IMovieService
     {
         // method for getting 30 top revenue movies
         //display properties in models,not return a single movie

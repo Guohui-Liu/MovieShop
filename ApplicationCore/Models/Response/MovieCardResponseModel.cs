@@ -10,9 +10,9 @@ namespace ApplicationCore.Models.Response
     {
         public int Id { get; set; }
         public String Title { get; set; }
-        public String PosterURl { get; set; }
+        public String PosterURL { get; set; }
 
-        public DateTime ReleaseTime { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
     }
 }
