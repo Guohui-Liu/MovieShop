@@ -22,6 +22,9 @@ namespace ApplicationCore.Models.Response
         public int? RunTime { get; set; }
         public decimal? Price { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public int FavoritesCount { get; set; }
+        public List<CastResponseModel> Cast { get; set; }
+        public List<GenreResponseModel> Genre { get; set; }
 
     }
 }

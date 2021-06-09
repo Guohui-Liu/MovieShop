@@ -14,6 +14,8 @@ using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Services;
 using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Repositories;
+using AutoMapper;
+using Infrastructure.Helpers;
 
 namespace MovieShop.MVC
 {
@@ -34,9 +36,14 @@ namespace MovieShop.MVC
             //registration of service for interface
             //autofac third party ioc
             //service.addscoped<if controllername has"home", then use MovieServiceTest, else use MoiveService
+            services.AddAutoMapper(typeof(Startup), typeof(MovieShopMappingProfile));
             services.AddScoped<IMovieService, MovieService>();
             // services.AddScoped<IMovieServices, MovieServiceTest>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IGenreService, GenreService>();
+            //   services.AddAutoMapper(profileAssembly1, profileAssembly2 /*, ...*/);
+         
 
             services.AddDbContext<MovieShopDbContext>(options =>
                 {
