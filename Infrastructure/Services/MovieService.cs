@@ -16,23 +16,60 @@ namespace Infrastructure.Services
         private readonly IMovieRepository _movieRepository;
         //private readonly IMapper _mapper;
 
-        public MovieService(IMovieRepository movieRepository, IMapper mapper)
+        public MovieService(IMovieRepository movieRepository/*, IMapper mapper*/)
         {
             _movieRepository = movieRepository;
            // _mapper = mapper;
         }
 
+        //public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int id)
+        //{
+
+        //    var movieDetails = new MovieDetailsResponseModel
+        //    {
+        //        Id = 1,
+        //        Title = "Avengers: Infinity War",
+        //        PosterUrl = "",
+        //        Budget = 1200000,
+        //        Overview = "Test String"
+        //    };
+
+        //    return movieDetails;
+        //}
         public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int id)
         {
+            var movie = await _movieRepository.GetById(id);
 
             var movieDetails = new MovieDetailsResponseModel
             {
-                Id = 1,
-                Title = "Avengers: Infinity War",
-                PosterUrl = "",
-                Budget = 1200000,
-                Overview = "Test String"
+                Id = movie.Id,
+                Title = movie.Title,
+                PosterUrl = movie.PosterUrl,
+                BackdropUrl = movie.BackdropUrl,
+                Rating = movie.Rating,
+                Overview = movie.Overview,
+                Tagline = movie.Tagline,
+                Budget = movie.Budget,
+                Revenue = movie.Revenue,
+                ImdbUrl = movie.ImdbUrl,
+                TmdbUrl = movie.TmdbUrl,
+                RunTime = movie.RunTime,
+                Price = movie.Price,
+                ReleaseDate = movie.ReleaseDate.GetValueOrDefault()
             };
+
+            movieDetails.Genres = new List<GenreResponseModel>();
+            movieDetails.Casts = new List<CastResponseModel>();
+
+            foreach (var cast in movie.MovieCast)
+            {
+                movieDetails.Casts.Add(new CastResponseModel { Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath, Character = cast.Character });
+            }
+
+            foreach (var genre in movie.Genre)
+            {
+                movieDetails.Genres.Add(new GenreResponseModel { Id = genre.Id, Name = genre.Name});
+            }
 
             return movieDetails;
         }
@@ -85,29 +122,5 @@ namespace Infrastructure.Services
     }
 
    
-
-    //public MovieDetailsResponseModel GetMovieDetailsById(int id)
-    //{
-    //    var movie = _movieRepository.GetById(id);
-    //    if (movie == null) throw new NotFoundException("Movie", id);
-    //    var favoritesCount = await _favoriteRepository.GetCountAsync(f => f.MovieId == id);
-    //    var response = _mapper.Map<MovieDetailsResponseModel>(movie);
-    //    response.FavoritesCount = favoritesCount;
-    //    return response;
-
-    // get movie info from Movie Table
-    // get genres by joining moviegenre, genre
-    // movie, moviecast and cast
-    // rating, Avg of movieid Review Table
-    //var movie = await _dbContext.Movies.Include(m => m.MovieGenres).ThenInclude(m => m.Genre).
-    //    Include(m => m.MovieCasts).ThenInclude(m => m.Cast).
-    //    FirstOrDefaultAsync(m => m.Id == id);
-
-    //var movieRating = await _dbContext.Reviews.Where(r => r.MovieId == id).DefaultIfEmpty().AverageAsync(r => r == null ? 0 : r.Rating);
-    //if (movieRating > 0) movie.Rating = movieRating;
-
-    //return movie;
-    //}
-    //}
 }
 

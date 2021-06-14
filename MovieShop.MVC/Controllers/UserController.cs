@@ -11,10 +11,12 @@ namespace MovieShop.MVC.Controllers
     public class UserController : Controller
     {
         private readonly ICurrentUserService _currentUserService;
+        private readonly IUserService _userService;
 
-        public UserController(ICurrentUserService currentUserService)
+        public UserController(ICurrentUserService currentUserService, IUserService userService)
         {
             _currentUserService = currentUserService;
+            _userService = userService;
         }
 
         [Authorize]
@@ -23,6 +25,8 @@ namespace MovieShop.MVC.Controllers
         {
 
             var userId = _currentUserService.UserId;
+
+            var Purchasedmovies = await _userService.GetPurchasesMovies(userId);
             // get the user id
             //
             // make a request to the database and get info from Purchase Table 

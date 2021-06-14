@@ -28,6 +28,12 @@ namespace MovieShop.MVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult EditProfile()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterRequestModel model)
         {

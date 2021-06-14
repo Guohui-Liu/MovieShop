@@ -1,5 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<h2>
+    Edit Profile
+</h2>
+
+<hr />
+
+<h3>
+    Upload your profile image
+</h3>
+
+<form method="post" enctype="multipart/form-data" asp-action="Upload">
+
+    <input type="file" name="profileImage" class="form-control" />
+    <input type="submit" class="btn btn-primary" value="Upload" />
+
+</form>

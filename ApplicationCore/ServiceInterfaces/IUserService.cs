@@ -13,6 +13,8 @@ namespace ApplicationCore.ServiceInterfaces
         Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel userRegisterRequestModel);
         Task<UserLoginResponseModel> Login(string email, string password);
 
+
+        Task<List<MovieCardResponseModel>> GetPurchasesMovies(int id);
         // delete
         // EditUser
         // Change Password
