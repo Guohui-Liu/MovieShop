@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,49 +15,52 @@ namespace Infrastructure.Repositories
     public class EfRepository<T> : IAsyncRepository<T> where T : class
     {
         protected readonly MovieShopDbContext _dbContext;
-        //constructor injection
+
         public EfRepository(MovieShopDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public virtual T GetById(int id) //virtual: change the implementation,can override the implementation
+        public virtual async Task<T> GetById(int id)
         {
-            var entity = _dbContext.Set<T>().Find(id); //EfRepository doesn't belong to any table
+            var entity = await _dbContext.Set<T>().FindAsync(id);
             return entity;
         }
 
-        public virtual IEnumerable<T> ListAll()
+        public virtual async Task<IEnumerable<T>> ListAll()
         {
-            return _dbContext.Set<T>().ToList();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public virtual IEnumerable<T> List(Expression<Func<T, bool>> filter)
+        public virtual async Task<IEnumerable<T>> List(Expression<Func<T, bool>> filter)
         {
-            return _dbContext.Set<T>().Where(filter).ToList();
+            return await _dbContext.Set<T>().Where(filter).ToListAsync();
         }
 
-        public virtual int GetCount(Expression<Func<T, bool>> filter)
+        public virtual async Task<int> GetCount(Expression<Func<T, bool>> filter)
         {
-            return _dbContext.Set<T>().Where(filter).Count();
+            return await _dbContext.Set<T>().Where(filter).CountAsync();
         }
 
-        public virtual bool GetExists(Expression<Func<T, bool>> filter)
+        public virtual async Task<bool> GetExists(Expression<Func<T, bool>> filter)
         {
-            return _dbContext.Set<T>().Where(filter).Any();
+            return await _dbContext.Set<T>().Where(filter).AnyAsync();
         }
 
-        public T Add(T entity)
+        public virtual async Task<T> Add(T entity)
+        {
+            await _dbContext.Set<T>().AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
+
+        }
+
+        public virtual async Task<T> Update(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public T Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(T entity)
+        public virtual Task Delete(T entity)
         {
             throw new NotImplementedException();
         }

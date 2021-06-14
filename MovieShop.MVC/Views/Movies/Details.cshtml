@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-8">
 
-                    @foreach (var genre in Model.Genre)
+                    @foreach (var genre in Model.Genres)
                     {
                         <a class="badge badge-pill badge-dark ml-1" asp-action="Genre" asp-route-id="@genre.Id">
                             @genre.Name
@@ -152,7 +152,7 @@
             <tbody>
 
 
-                @foreach (var cast in Model.Cast)
+                @foreach (var cast in Model.Casts)
                 {
                     <tr>
                         <td>

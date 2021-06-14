@@ -11,8 +11,7 @@ namespace ApplicationCore.ServiceInterfaces
     {
         // method for getting 30 top revenue movies
         //display properties in models,not return a single movie
-        List<MovieCardResponseModel> GetTopRevenueMovies();
-
-        MovieDetailsResponseModel GetMovieDetailsById(int id);
+        Task<List<MovieCardResponseModel>> GetTopRevenueMovies();
+        Task<MovieDetailsResponseModel> GetMovieDetailsById(int id);
     }
 }

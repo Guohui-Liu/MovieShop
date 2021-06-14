@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApplicationCore.ServiceInterfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +10,36 @@ namespace MovieShop.MVC.Controllers
 {
     public class UserController : Controller
     {
-        //private readonly IMovieService _movieService;
-        //private readonly IUserService _userService;
+        private readonly ICurrentUserService _currentUserService;
 
-        //public UserController(IUserService userService, IMovieService movieService)
-        //{
-        //    _userService = userService;
-        //    _movieService = movieService;
-        //}
+        public UserController(ICurrentUserService currentUserService)
+        {
+            _currentUserService = currentUserService;
+        }
 
-        public IActionResult Purchase(int id)
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetUserPurchasedMovies()
         {
 
-            // call the user service with userid and get 
-            // it should check for cookie
-            //var movie = await _movieService.GetMovieByIdAsync(id);
-            //return View(movie);
+            var userId = _currentUserService.UserId;
+            // get the user id
+            //
+            // make a request to the database and get info from Purchase Table 
+            // select * from Purchase where userid = @getfromcookie
             return View();
         }
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> PurchaseMovie()
+        {
+            // get userid from CurrentUser and create a row in Purchase Table
+            return View();
+        }
+    
+    
 
 
     }

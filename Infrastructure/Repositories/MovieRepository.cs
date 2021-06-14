@@ -10,35 +10,53 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class MovieRepository : EfRepository<Movie>, IMovieRepository //implement 10 methods, 8 methods in EfRepo
+    public class MovieRepository : EfRepository<Movie>, IMovieRepository
     {
         public MovieRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
         }
 
-        public IEnumerable<Movie> GetTopRatedMovies()
+        public async Task<IEnumerable<Movie>> GetTopRatedMovies()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Movie> GetHighestRevenueMovies()
+        public async Task<IEnumerable<Movie>> GetHighestRevenueMovies()
         {
-            var movies = _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToList(); //inheritence from constructor in EfRepos
+            var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
             return movies;
         }
-
-        public IEnumerable<Movie> GetMovieDetailsById(int id)
-        {
-            var movie = _dbContext.Movies.Include(m => m.Genre).FirstOrDefault(m => m.Id == id);
-            yield return movie;
-        }
-
-        //    public override Movie GetById(int id)
-        //    {
-        //        return base.GetById(id);
-        //    }
-
-
-
     }
+
+    //public IEnumerable<Movie> GetMovieDetailsById(int id)
+    //{
+    //    var movie = _dbContext.Movies.Include(m => m.Genre).FirstOrDefault(m => m.Id == id);
+    //    yield return movie;
+    //}
+
+    //public override async Task<Movie> GetByIdAsync(int id)
+    //{
+    //    get movie info from movie table
+    //    get genres by joining moviegenre, genre
+    //    movie, moviecast and cast
+    //    rating, avg of movieid review table
+    //    return base.GetById(id);
+    //    var movie = await _dbContext.Movies.Include(m => m.MovieCast).ThenInclude(m => m.Cast)
+    //       .Include(m => m.Genre)
+    //       .FirstOrDefaultAsync(m => m.Id == id);
+    //    //if (movie == null)
+    //    //{
+    //    //    throw new NotFoundException("Movie Not found");
+    //    //}
+
+    //    var movieRating = await _dbContext.Reviews.Where(r => r.MovieId == id).DefaultIfEmpty()
+    //        .AverageAsync(r => r == null ? 0 : r.Rating);
+    //    if (movieRating > 0) movie.Rating = movieRating;
+
+    //    return movie;
+    //}
+
+
+
 }
+

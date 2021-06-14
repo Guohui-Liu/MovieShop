@@ -16,6 +16,8 @@ using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Repositories;
 using AutoMapper;
 using Infrastructure.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using MovieShop.MVC.MiddleWares;
 
 namespace MovieShop.MVC
 {
@@ -43,8 +45,17 @@ namespace MovieShop.MVC
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IGenreService, GenreService>();
             //   services.AddAutoMapper(profileAssembly1, profileAssembly2 /*, ...*/);
-         
-
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options =>
+               {
+                   options.Cookie.Name = "MovieShopAuthCookie";
+                   options.ExpireTimeSpan = TimeSpan.FromHours(2);
+                   options.LoginPath = "/Account/Login";
+               });
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddDbContext<MovieShopDbContext>(options =>
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("MovieShopDbConnection"));
@@ -56,7 +67,8 @@ namespace MovieShop.MVC
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+                app.UseMovieShopExceptionMiddleware();
             }
             else
             {
@@ -68,8 +80,11 @@ namespace MovieShop.MVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseLoggerMiddleware();
+            
 
             app.UseEndpoints(endpoints =>
             {
