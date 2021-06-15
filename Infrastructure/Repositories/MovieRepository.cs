@@ -35,7 +35,7 @@ namespace Infrastructure.Repositories
             //// movie, moviecast and cast
             //// rating, Avg of movieid Review Table
             var movie = await _dbContext.Movies.Include(m => m.MovieGenres).ThenInclude(m => m.Genre).
-               //Include(m => m.MovieCast).ThenInclude(m => m.Cast).
+               Include(m => m.MovieCast).ThenInclude(m => m.Cast).
                FirstOrDefaultAsync(m => m.Id == id);
 
             //var movieRating = await _dbContext.Reviews.Where(r => r.MovieId == id).DefaultIfEmpty().AverageAsync(r => r == null ? 0 : r.Rating);
