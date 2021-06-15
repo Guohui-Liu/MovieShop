@@ -41,16 +41,7 @@ namespace MovieShop.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieShop.API", Version = "v1" });
             });
 
-            services.AddScoped<IMovieService, MovieService>();
-            // services.AddScoped<IMovieServices, MovieServiceTest>();
-            services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddHttpContextAccessor();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddDbContext<MovieShopDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("MovieShopDbConnection"));
-            });
+            
 
             services.AddAutoMapper(typeof(Startup), typeof(MovieShopMappingProfile));
             services.AddScoped<IMovieService, MovieService>();

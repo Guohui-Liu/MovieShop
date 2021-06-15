@@ -26,12 +26,12 @@ namespace MovieShop.MVC.Controllers
 
             var userId = _currentUserService.UserId;
 
-            var Purchasedmovies = await _userService.GetPurchasesMovies(userId);
+            var purchasedmovies = await _userService.GetPurchasesMovies(userId);
             // get the user id
             //
             // make a request to the database and get info from Purchase Table 
             // select * from Purchase where userid = @getfromcookie
-            return View();
+            return View(purchasedmovies);
         }
 
 

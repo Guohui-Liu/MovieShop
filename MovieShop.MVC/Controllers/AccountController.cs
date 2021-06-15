@@ -28,6 +28,12 @@ namespace MovieShop.MVC.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public IActionResult Profile()
+        //{
+        //    return View();
+        //}
+
         [HttpGet]
         public IActionResult EditProfile()
         {

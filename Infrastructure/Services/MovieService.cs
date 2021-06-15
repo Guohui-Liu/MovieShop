@@ -61,15 +61,15 @@ namespace Infrastructure.Services
             movieDetails.Genres = new List<GenreResponseModel>();
             movieDetails.Casts = new List<CastResponseModel>();
 
-            foreach (var cast in movie.MovieCast)
-            {
-                movieDetails.Casts.Add(new CastResponseModel { Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath, Character = cast.Character });
-            }
+            //foreach (var cast in movie.MovieCast)
+            //{
+            //    movieDetails.Casts.Add(new CastResponseModel { Id = cast.Cast.Id, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath, Character = cast.Character });
+            //}
 
-            foreach (var genre in movie.Genre)
-            {
-                movieDetails.Genres.Add(new GenreResponseModel { Id = genre.Id, Name = genre.Name});
-            }
+            //foreach (var genre in movie.MovieGenres)
+            //{
+            //    movieDetails.Genres.Add(new GenreResponseModel { Id = genre.GenreId, Name = genre.Genre.Name });
+            //}
 
             return movieDetails;
         }

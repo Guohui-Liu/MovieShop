@@ -31,10 +31,14 @@ namespace Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>().HasMany(m => m.Genre).WithMany(g => g.Movies)
-                .UsingEntity<Dictionary<string, object>>("MovieGenre",
-                    m => m.HasOne<Genre>().WithMany().HasForeignKey("GenreId"),
-                    g => g.HasOne<Movie>().WithMany().HasForeignKey("MovieId"));
+            modelBuilder.Entity<MovieGenre>().HasKey(mg => new { mg.MovieId, mg.GenreId });
+            modelBuilder.Entity<MovieGenre>().HasOne(mg => mg.Movie).WithMany(m => m.MovieGenres).HasForeignKey(mg => mg.MovieId);
+            modelBuilder.Entity<MovieGenre>().HasOne(mg => mg.Genre).WithMany(m => m.MovieGenres).HasForeignKey(mg => mg.GenreId);
+
+            //HasMany(m => m.MovieGenre).WithMany(g => g.Movie)
+            //.UsingEntity<Dictionary<string, object>>("MovieGenre",
+            //    m => m.HasOne<Genre>().WithMany().HasForeignKey("GenreId"),
+            //    g => g.HasOne<Movie>().WithMany().HasForeignKey("MovieId"));
 
 
             modelBuilder.Entity<User>().HasMany(u => u.Roles).WithMany(r => r.Users)
