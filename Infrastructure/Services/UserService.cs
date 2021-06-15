@@ -129,8 +129,19 @@ namespace Infrastructure.Services
 
 
         }
-   
 
-
+        public async Task<UserProfileResponseModel> GetUserDetails(int id)
+        {
+            var user = await _userRepository.GetById(id);
+            var userProfileResponse = new UserProfileResponseModel {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                PhoneNumber = user.PhoneNumber
+            };
+            return userProfileResponse;
+        }
     }
 }

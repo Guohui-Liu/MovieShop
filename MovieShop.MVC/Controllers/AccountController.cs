@@ -14,10 +14,11 @@ namespace MovieShop.MVC.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
-
-        public AccountController(IUserService userService)
+        private readonly ICurrentUserService _currentUserService;
+        public AccountController(IUserService userService, ICurrentUserService currentUserService)
         {
             _userService = userService;
+            _currentUserService = currentUserService;
         }
 
         [HttpGet]
@@ -28,11 +29,13 @@ namespace MovieShop.MVC.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult Profile()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            var userId = _currentUserService.UserId;
+            var userProfileResponse = _userService.GetUserDetails(userId).GetAwaiter().GetResult();
+            return View(userProfileResponse);
+        }
 
         [HttpGet]
         public IActionResult EditProfile()

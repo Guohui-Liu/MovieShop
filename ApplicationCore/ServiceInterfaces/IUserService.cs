@@ -15,6 +15,8 @@ namespace ApplicationCore.ServiceInterfaces
 
 
         Task<List<MovieCardResponseModel>> GetPurchasesMovies(int id);
+
+        Task<UserProfileResponseModel> GetUserDetails(int id);
         // delete
         // EditUser
         // Change Password
