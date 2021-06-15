@@ -30,5 +30,18 @@ namespace MovieShop.API
             }
             return NotFound("No Movies");
         }
+
+        [HttpGet]   // api/movies/toprevenue
+        [Route("")]
+        public async Task<IActionResult> GetMovieById(int Id)
+        {
+            var movie = await _movieService.GetMovieDetailsById(Id);
+
+            if (movie != null)
+            {
+                return Ok(movie);
+            }
+            return NotFound("No Movie");
+        }
     }
 }
