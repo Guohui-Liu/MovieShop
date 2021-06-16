@@ -143,5 +143,75 @@ namespace Infrastructure.Services
             };
             return userProfileResponse;
         }
+
+        //public async Task<UserProfileRequestModel> UpdateUserDetails(UserProfileRequestModel model)
+        //{
+        //    //var user = await _userRepository.GetById(UserProfileRequestModel.Id);
+
+            //if (user == null)
+            //{
+            //    // return null
+            //    return null;
+            //}
+
+            //user.Id = UserProfileRequestModel.Id;
+            //user.FirstName = UserProfileRequestModel.FirstName;
+            //user.LastName = UserProfileRequestModel.LastName;
+            //user.Email = UserProfileRequestModel.Email;
+            //user.PhoneNumber = UserProfileRequestModel.PhoneNumber;
+            //user.LastLoginDateTime = UserProfileRequestModel.LastLoginDateTime;
+
+            //await _userRepository.UpdateAsync(user);
+
+            //var response = new UserProfileResponseModel
+            //{
+            //    Id = userProfileResponseModel.Id,
+            //    FirstName = userProfileResponseModel.FirstName,
+            //    LastName = userProfileResponseModel.LastName,
+            //    Email = userProfileResponseModel.Email,
+            //    PhoneNumber = userProfileResponseModel.PhoneNumber,
+            //    LastLoginDateTime = userProfileResponseModel.LastLoginDateTime
+            //};
+
+            //return response;
+
+        //}
+
+        Task IUserService.UpdateUserDetails(UserProfileRequestModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<MovieCardResponseModel>> GetFavoriteMoviesById(int id)
+        {
+            var favoriteMovie = await _userRepository.GetById(id);
+            var favoriteMovieList = new List<MovieCardResponseModel>();
+            foreach (var Movie in favoriteMovieList)
+            {
+                favoriteMovieList.Add(new MovieCardResponseModel
+                {
+                 Id = Movie.Id ,
+                 PosterURL = Movie.PosterURL,
+                 ReleaseDate = Movie.ReleaseDate.Date,
+                 Title = Movie.Title 
+                });
+            }
+            return favoriteMovieList;
+        }
+
+        public Task<MovieCardResponseModel> AddFavoriteMovie(MovieCardResponseModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
+
+//purchaseMovieList.Add(new MovieCardResponseModel
+//{
+//    Id = purchase.MovieId,
+//    Title = purchase.Movie.Title,
+//    PosterURL = purchase.Movie.PosterUrl,
+//    ReleaseDate = purchase.Movie.ReleaseDate.GetValueOrDefault()
+//});            
+//            }
+//            return purchaseMovieList;

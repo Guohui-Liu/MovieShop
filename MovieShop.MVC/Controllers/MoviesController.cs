@@ -13,9 +13,11 @@ namespace MovieShop.MVC.Controllers
         //always have http Method attributes, by default if you don't have anything its HttpGet
 
         private readonly IMovieService _movieServices;
-        public MoviesController(IMovieService service)
+        private readonly IGenreService _genreService;
+        public MoviesController(IMovieService service, IGenreService genreService)
         {
             _movieServices = service;
+            _genreService = genreService;
         }
 
 
@@ -43,7 +45,10 @@ namespace MovieShop.MVC.Controllers
         [HttpGet]
         public IActionResult Genre(int genreId)
         {
-            return View();
+            var movies = _genreService.GetMoviesByGenreId(genreId).GetAwaiter().GetResult();
+
+
+            return View(movies);
         }
 
 

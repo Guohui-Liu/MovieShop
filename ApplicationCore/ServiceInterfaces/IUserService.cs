@@ -13,21 +13,30 @@ namespace ApplicationCore.ServiceInterfaces
         Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel userRegisterRequestModel);
         Task<UserLoginResponseModel> Login(string email, string password);
 
-
+        // Get All Purchased Movies
         Task<List<MovieCardResponseModel>> GetPurchasesMovies(int id);
 
+        // Get User Details
         Task<UserProfileResponseModel> GetUserDetails(int id);
-        // delete
         // EditUser
+        Task UpdateUserDetails(UserProfileRequestModel model);
+
+        // Get All Favorited Movies
+        Task<List<MovieCardResponseModel>> GetFavoriteMoviesById(int id);
+
+        // Favorite Movie
+        Task<MovieCardResponseModel> AddFavoriteMovie(MovieCardResponseModel model);
+        // delete
+       
         // Change Password
         // Purchase Movie
-        // Favorite Movie
+       
         // Add Review
-        // Get All Purchased Movies
-        // Get All Favorited Movies
+
+        
         // Edit Review
         // Remove Favorite
-        // Get User Details
+
         // 
 
 

@@ -11,5 +11,7 @@ namespace ApplicationCore.ServiceInterfaces
     {
        Task<List<GenreResponseModel>> GetAllGenres();
 
+        Task<List<MovieCardResponseModel>> GetMoviesByGenreId(int Id);
+
     }
 }
