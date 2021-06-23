@@ -206,12 +206,3 @@ namespace Infrastructure.Services
     }
 }
 
-//purchaseMovieList.Add(new MovieCardResponseModel
-//{
-//    Id = purchase.MovieId,
-//    Title = purchase.Movie.Title,
-//    PosterURL = purchase.Movie.PosterUrl,
-//    ReleaseDate = purchase.Movie.ReleaseDate.GetValueOrDefault()
-//});            
-//            }
-//            return purchaseMovieList;

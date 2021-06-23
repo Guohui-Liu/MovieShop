@@ -57,12 +57,15 @@ namespace Infrastructure.Repositories
 
         public virtual async Task<T> Update(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
-        public virtual Task Delete(T entity)
+        public virtual async Task Delete(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
     }
 

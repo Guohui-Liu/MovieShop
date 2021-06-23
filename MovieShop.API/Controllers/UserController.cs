@@ -14,17 +14,26 @@ namespace MovieShop.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly ICurrentUserService _currentuserService;
+        public UserController(IUserService userService, ICurrentUserService currentuserService)
         {
             _userService = userService;
+            _currentuserService = currentuserService;
         }
 
         [Authorize]
         [HttpGet("{id:int}/purchases")]
         public async Task<ActionResult> GetUserPurchasedMoviesAsync(int id)
         {
-            var userMovies = await _userService.GetPurchasesMovies(id);
+            if (_currentuserService.UserId!= id)
+            {
+                return Unauthorized();
+            }
+            //get all movies purchased by user id
+            //we need to check if the client who is calling this method 
+           var userMovies = await _userService.GetPurchasesMovies(id);
             return Ok(userMovies);
+           
         }
     }
 }

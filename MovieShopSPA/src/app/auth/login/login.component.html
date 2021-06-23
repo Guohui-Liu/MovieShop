@@ -1,0 +1,23 @@
+<form class="container" (ngsubmit) ="login()">
+<div *ngIf="invalidLogin" class="alert alert-danger">
+    Invlid email/password
+</div>
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        aria-describedby="emailHelp" 
+        name="email" 
+        [(ngModel)]="userLogin.email"/>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" 
+      [(ngModel)]="userLogin.password"/>
+    </div>
+  
+    <input type="submit" value="Submit" class="btn btn-primary" />
+  </form>
